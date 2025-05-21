@@ -40,9 +40,6 @@ public class Transaction {
     // Timestamp of when the transaction was created
     private LocalDateTime timestamp;
 
-    // Current status of the transaction
-    @Pattern(regexp = "^(PENDING|COMPLETED|FAILED)$", message = "Status must be PENDING, COMPLETED, or FAILED")
-    private String status;
 
     /**
      * Default constructor.
@@ -67,7 +64,6 @@ public class Transaction {
         this.amount = amount;
         this.type = type;
         this.description = description;
-        this.status = "PENDING";
     }
 
 } 

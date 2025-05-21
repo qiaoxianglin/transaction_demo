@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * Cache layer config
  */
 @Configuration
-@EnableCaching
 public class CacheConfig {
 
     @Bean

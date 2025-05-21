@@ -35,7 +35,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final Map<String, Transaction> transactionStore = new ConcurrentHashMap<>();
     
     // Secondary storage for duplicate detection using composite key
-    private final Map<String, Transaction> accountTransactionStore = new ConcurrentHashMap<>();
+    private final Set<String> uniqueTransactions = Collections.newSetFromMap(new ConcurrentHashMap<>());
     
     // Validator for transaction data
     private final Validator validator;
@@ -74,7 +74,7 @@ public class TransactionServiceImpl implements TransactionService {
         
         // Check for duplicate transactions
         String key = generateTransactionKey(transaction);
-        if (accountTransactionStore.containsKey(key)) {
+        if (uniqueTransactions.contains(key)) {
             logger.warn("Duplicate transaction attempt detected for account: {}, amount: {}, type: {}", 
                 transaction.getAccountNumber(), transaction.getAmount(), transaction.getType());
             throw new DuplicateTransactionException("A similar transaction already exists for this account");
@@ -87,7 +87,7 @@ public class TransactionServiceImpl implements TransactionService {
         
         // Store transaction in both maps
         transactionStore.put(transaction.getId(), transaction);
-        accountTransactionStore.put(key, transaction);
+        uniqueTransactions.add(key);
         
         logger.info("Successfully created transaction with ID: {} for account: {}", 
             transaction.getId(), transaction.getAccountNumber());
@@ -130,7 +130,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setId(id);
         String key = generateTransactionKey(transaction);
         transactionStore.put(id, transaction);
-        accountTransactionStore.put(key, transaction);
+        uniqueTransactions.add(key);
 
         logger.info("Successfully updated transaction with ID: {}", id);
         return CompletableFuture.completedFuture(transaction);
@@ -161,7 +161,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         // Remove from account store
         String key = generateTransactionKey(transaction);
-        accountTransactionStore.remove(key);
+        uniqueTransactions.remove(key);
         
         logger.info("Successfully deleted transaction with ID: {}", id);
         return CompletableFuture.completedFuture(null);

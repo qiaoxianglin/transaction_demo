@@ -80,9 +80,9 @@ public class TransactionController {
     }
 
     /**
-     * Retrieves all transactions with pagination.
+     * Retrieves all transactions by pagination.
      *
-     * @param pageable Pagination information
+     * @param pageable Pagination request
      * @return ResponseEntity containing a page of transactions
      */
     @GetMapping

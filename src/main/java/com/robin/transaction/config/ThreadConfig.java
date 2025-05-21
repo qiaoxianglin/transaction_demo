@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
  * Configures the thread pool executor for async operations.
  */
 @Configuration
-@EnableAsync
 public class ThreadConfig {
     @Autowired
     private AsyncExecutorProperties asyncExecutorProperties;

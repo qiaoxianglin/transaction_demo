@@ -25,7 +25,6 @@ public class TransactionValidationTest {
         transaction.setAmount(new BigDecimal("100.00"));
         transaction.setType("DEBIT");
         transaction.setDescription("Test transaction");
-        transaction.setStatus("PENDING");
 
         Set<ConstraintViolation<Transaction>> violations = validator.validate(transaction);
         assertFalse(violations.isEmpty());
@@ -40,7 +39,6 @@ public class TransactionValidationTest {
         transaction.setAmount(new BigDecimal("100.00"));
         transaction.setType("DEBIT");
         transaction.setDescription("Test transaction");
-        transaction.setStatus("PENDING");
 
         Set<ConstraintViolation<Transaction>> violations = validator.validate(transaction);
         assertFalse(violations.isEmpty());
@@ -55,7 +53,6 @@ public class TransactionValidationTest {
         transaction.setAmount(new BigDecimal("100.00"));
         transaction.setType("DEBIT");
         transaction.setDescription("Test transaction");
-        transaction.setStatus("PENDING");
 
         Set<ConstraintViolation<Transaction>> violations = validator.validate(transaction);
         assertTrue(violations.isEmpty());
