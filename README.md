@@ -28,8 +28,6 @@ Demo a transaction management system using async, caching to achieve high perfor
 # Run tests
 ./mvnw test
 
-# Run performance tests
-./mvnw test -Dtest=TransactionPerformanceTest
 ```
 
 ### Running the Application
